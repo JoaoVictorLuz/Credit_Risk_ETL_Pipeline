@@ -24,16 +24,13 @@ cd Desafio_neon
 ### **1.2. Configure as variáves de ambiente ⚠️ **IMPORTANTE**
 > **🔴 ATENÇÃO:** Este passo é **obrigatório**! O projeto não funcionará sem as credenciais configuradas.
 
-**Opção 1:**
-- Adicione o arquivo .env (enviado por email) no diretório do projeto
+**Opção 1**
+- Você já possui o diretório completo que já vem com o .env
 
 **Opção 2:**
-```bash
-# Copie o template
-cp .env.example .env
-# Edite com as credenciadas AWS e Snowflake que foram enviadas pelo email
-nano .env
-```
+- Você clonou o diretório do github e não possui o .env:
+ Então adicione o arquivo .env (enviado por email) no diretório do projeto
+
 🔥 Execute este comando (para ambas opções):
 ```bash
 # Adicione seu UID do sistema
