@@ -5,8 +5,30 @@ Pipeline ETL automatizado para processamento de dados de crédito, orquestrado c
 ---
 ## 📑 Índice
 
-- [🚀 Como Executar o Pipeline](#-como-executar-o-pipeline)
 - [🏗️ Arquitetura](#️-arquitetura)
+- [🚀 Como Executar o Pipeline](#-como-executar-o-pipeline)
+
+## 🏗️ Arquitetura
+
+![architecture_image](images/Diagrama_pronto.jpg)
+
+### Detalhes do Pipeline:
+
+**Tasks:**
+1. **extract**: Extrai CSVs do S3 → retorna DataFrames
+2. **transform**: Aplica transformações → retorna DataFrames limpos
+3. **load**: Salva em Parquet → Upload para Stage → COPY INTO tables
+
+**Comunicação entre tasks:** XCom (Cross-Communication)
+
+**Agendamento:**
+
+- **Frequência:** Diária
+- **Horário:** 02:00 UTC
+- **Cron:** `0 2 * * *`
+- **Catchup:** Desabilitado
+- **Retries:** 2 tentativas
+- **Retry Delay:** 5 minutos
 
 ## 🚀 Como Executar o Pipeline
 
@@ -24,14 +46,10 @@ cd Desafio_neon
 ### **1.2. Configure as variáves de ambiente ⚠️ **IMPORTANTE**
 > **🔴 ATENÇÃO:** Este passo é **obrigatório**! O projeto não funcionará sem as credenciais configuradas.
 
-**Opção 1**
-- Você já possui o diretório completo que já vem com o .env
+- Esse projeto foi construido no desafio de estágio de engenharia de dados da NEON, por isso minhas credenciais foram disponibilizadas de forma segura nesse contexto, o que infelizmente não posso replicar aqui 😔.
+- No *.env.example* há um exemplo de como as credenciais deveriam ser preenchidas.
 
-**Opção 2:**
-- Você clonou o diretório do github e não possui o .env:
- Então adicione o arquivo .env (enviado por email) no diretório do projeto
-
-🔥 Execute este comando (para ambas opções):
+🔥 Finalmente execute este comando:
 ```bash
 # Adicione seu UID do sistema
 echo "AIRFLOW_UID=$(id -u)" >> .env
@@ -79,26 +97,3 @@ docker compose down
 # Parar e remover volumes (limpa tudo)
 docker compose down -v
 ```
-## 🏗️ Arquitetura
-
-![architecture_image](images/Diagrama_pronto.jpg)
-
-### Detalhes do Pipeline:
-
-**Tasks:**
-1. **extract**: Extrai CSVs do S3 → retorna DataFrames
-2. **transform**: Aplica transformações → retorna DataFrames limpos
-3. **load**: Salva em Parquet → Upload para Stage → COPY INTO tables
-
-**Comunicação entre tasks:** XCom (Cross-Communication)
-
-**Agendamento:**
-
-- **Frequência:** Diária
-- **Horário:** 02:00 UTC
-- **Cron:** `0 2 * * *`
-- **Catchup:** Desabilitado
-- **Retries:** 2 tentativas
-- **Retry Delay:** 5 minutos
-
-
